@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LSEC - Módulo Abecedario</title>
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- MediaPipe Hands (Reconocimiento visual de la mano) -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <main class="main-container">
+    <header class="header">
+      <a href="index.html" class="back-link">← Volver al Inicio</a>
+      <h1>🔤 Abecedario LSEC</h1>
+      <p>Deletrea palabra por palabra en tiempo real</p>
+    </header>
+
+    <div class="video-wrapper">
+      <button class="btn-action btn-cam" onclick="toggleCamera()">🔄 Cambiar Cámara</button>
+      <video id="webcam" autoplay playsinline muted></video>
+      <canvas id="output_canvas" width="640" height="480"></canvas>
+    </div>
+
+    <div class="status-box">
+      <div id="output-class" class="detected-class">Iniciando sistema...</div>
+      <div id="output-confidence" class="confidence-tag">Confianza: --</div>
+    </div>
+
+    <!-- Sección de Construcción de Oración -->
+    <section class="section-container">
+      <h3>Texto Construido (Deletreo):</h3>
+      <div id="sentence-display" class="sentence-box">...</div>
+      <div class="button-group">
+        <button class="btn-action" onclick="agregarLetraDetectada()">➕ Añadir Letra</button>
+        <button class="btn-action" onclick="agregarEspacio()">Espacio</button>
+        <button class="btn-action" onclick="borrarPalabra()">Borrar Palabra</button>
+        <button class="btn-action btn-danger" onclick="limpiarTexto()">Limpiar Todo</button>
+        <button class="btn-action btn-primary" onclick="leerOracion()">🔊 Leer Oración</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
