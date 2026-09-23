@@ -1,0 +1,258 @@
+:root {
+  /* Paleta Fresca y Amable */
+  --primary: #0891b2;         /* Turquesa / Azul fresco principal */
+  --primary-hover: #0e7490;
+  --primary-light: #ecfeff;   /* Fondo muy suave para la caja de texto */
+  
+  --accent: #f59e0b;          /* Ámbar cálido (borde del logo) */
+  
+  --bg-color: #f8fafc;        /* Fondo general suave */
+  --card-bg: #ffffff;         /* Tarjetas blancas */
+  
+  --text-main: #0f172a;       /* Texto oscuro legible */
+  --text-muted: #64748b;      /* Texto secundario */
+  --border-color: #e2e8f0;    /* Bordes sutiles */
+  
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --shadow-soft: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+}
+
+/* Reset Global para cálculo exacto de dimensiones */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 16px 12px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.main-container {
+  width: 100%;
+  max-width: 520px; /* Ancho idóneo para móviles y tablets reducidas */
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Encabezado */
+.header {
+  text-align: center;
+  background: var(--card-bg);
+  padding: 24px 18px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-soft);
+}
+
+.logo-simbolo {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--accent);
+  box-shadow: 0 6px 16px rgba(245, 158, 11, 0.25);
+  margin-bottom: 12px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--primary);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.header p {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  margin: 6px 0 0 0;
+}
+
+.back-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+/* Visor de Cámara */
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3; /* Asegura proporción constante en móviles */
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: #0f172a;
+  border: 2px solid var(--primary);
+  box-shadow: var(--shadow-soft);
+}
+
+#webcam, #output_canvas {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: scaleX(-1);
+}
+
+.btn-cam {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text-main);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-color);
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* Cuadro de Estado */
+.status-box {
+  background: var(--card-bg);
+  padding: 16px;
+  border-radius: var(--radius-md);
+  text-align: center;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-soft);
+}
+
+.detected-class {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.confidence-tag {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* Secciones y Cajas de Texto */
+.section-container {
+  background: var(--card-bg);
+  padding: 20px 16px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-soft);
+}
+
+.section-container h3 {
+  margin: 0 0 12px 0;
+  color: var(--text-main);
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.sentence-box {
+  background: var(--primary-light);
+  padding: 16px;
+  border-radius: var(--radius-md);
+  min-height: 52px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 16px;
+  border: 2px dashed #a5f3fc;
+  word-break: break-word;
+  display: flex;
+  align-items: center;
+}
+
+/* Botones Accesibles para Tactil */
+.button-group {
+  display: flex;
+  flex-direction: column; /* Botones apilados al 100% de ancho en móvil */
+  gap: 10px;
+  width: 100%;
+}
+
+.btn-action {
+  width: 100%;
+  min-height: 48px; /* Tamaño táctil estándar de iOS/Android */
+  background: #f1f5f9;
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  padding: 12px 20px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.btn-action:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 4px 12px rgba(8, 145, 178, 0.25);
+}
+
+.btn-primary:active {
+  background: var(--primary-hover);
+}
+
+/* Optimización para Pantallas Más Grandes (PC / Tablet) */
+@media (min-width: 640px) {
+  body {
+    padding: 32px 20px;
+  }
+
+  .main-container {
+    max-width: 640px;
+    gap: 20px;
+  }
+
+  .header {
+    padding: 32px 24px;
+  }
+
+  .header h1 {
+    font-size: 1.85rem;
+  }
+
+  .logo-simbolo {
+    width: 105px;
+    height: 105px;
+  }
+
+  .button-group {
+    flex-direction: row; /* En PC se colocan uno al lado del otro */
+  }
+
+  .btn-action {
+    width: auto;
+    flex: 1;
+  }
+}
