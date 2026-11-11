@@ -1,0 +1,351 @@
+/* ==========================================================================
+   LSEC - Hoja de Estilos Optimizada (SaaS / IA Week 2026)
+   ========================================================================== */
+
+:root {
+  /* Paleta Fresca y Profesional */
+  --primary: #0891b2;           /* Turquesa principal */
+  --primary-hover: #0e7490;
+  --primary-light: #ecfeff;     /* Fondo suave para caja de texto */
+  --primary-border: #a5f3fc;
+  
+  --accent: #f59e0b;            /* Ámbar cálido para detalles */
+  --accent-glow: rgba(245, 158, 11, 0.25);
+  
+  --bg-color: #f8fafc;          /* Fondo general */
+  --card-bg: #ffffff;           /* Tarjetas limpias */
+  
+  --text-main: #0f172a;         /* Slate oscuro */
+  --text-muted: #64748b;        /* Texto secundario */
+  --border-color: #e2e8f0;      /* Bordes suaves */
+  
+  --radius-xl: 24px;
+  --radius-lg: 18px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+
+  /* Elevaciones de Sombra */
+  --shadow-subtle: 0 1px 3px rgba(15, 23, 42, 0.05);
+  --shadow-soft: 0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 8px 10px -6px rgba(15, 23, 42, 0.03);
+  --shadow-hover: 0 16px 30px -8px rgba(8, 145, 178, 0.18);
+  --shadow-primary: 0 6px 16px rgba(8, 145, 178, 0.3);
+
+  --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reset Global con Suavizado de Fuentes */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 16px 12px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Envoltorio Principal */
+.main-container {
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* --------------------------------------------------------------------------
+   Encabezado Institucional
+   -------------------------------------------------------------------------- */
+.header {
+  text-align: center;
+  background: var(--card-bg);
+  padding: 24px 20px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Enlace Volver */
+.back-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 14px;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--primary-light);
+  transition: var(--transition-fast);
+}
+
+.back-link:hover {
+  background: #cffafe;
+  color: var(--primary-hover);
+  transform: translateX(-2px);
+}
+
+/* Logo Cóndor */
+.logo-simbolo {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--accent);
+  box-shadow: 0 8px 20px var(--accent-glow);
+  margin: 0 auto 12px auto;
+  display: block;
+  transition: var(--transition-fast);
+}
+
+.logo-simbolo:hover {
+  transform: scale(1.03);
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.55rem;
+  color: var(--text-main);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.header p {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  margin: 6px 0 0 0;
+  font-weight: 500;
+}
+
+/* --------------------------------------------------------------------------
+   Visor de Cámara HUD
+   -------------------------------------------------------------------------- */
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: #090d16;
+  border: 2px solid var(--primary);
+  box-shadow: var(--shadow-soft);
+}
+
+#webcam, #output_canvas {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: scaleX(-1);
+}
+
+/* Botón Flotante "Cambiar Cámara" */
+.btn-cam {
+  position: absolute !important;
+  top: 12px !important;
+  right: 12px !important;
+  left: auto !important;
+  width: auto !important;
+  max-width: fit-content !important;
+  z-index: 10;
+  background: rgba(15, 23, 42, 0.75) !important;
+  color: #ffffff !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  padding: 8px 14px !important;
+  border-radius: 30px !important;
+  font-size: 0.78rem !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  cursor: pointer;
+  transition: var(--transition-fast) !important;
+}
+
+.btn-cam:hover {
+  background: rgba(15, 23, 42, 0.9) !important;
+  border-color: var(--primary) !important;
+  transform: translateY(-1px);
+}
+
+.btn-cam:active {
+  transform: scale(0.95) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Cuadro de Estado / Inferencia
+   -------------------------------------------------------------------------- */
+.status-box {
+  background: var(--card-bg);
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  text-align: center;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-subtle);
+}
+
+.detected-class {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--primary);
+  letter-spacing: -0.01em;
+}
+
+.confidence-tag {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   Secciones y Cajas de Texto
+   -------------------------------------------------------------------------- */
+.section-container {
+  background: var(--card-bg);
+  padding: 20px 18px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-soft);
+}
+
+.section-container h3 {
+  margin: 0 0 14px 0;
+  color: var(--text-main);
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: -0.01em;
+}
+
+.sentence-box {
+  background: var(--primary-light);
+  padding: 16px 18px;
+  border-radius: var(--radius-md);
+  min-height: 56px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 16px;
+  border: 2px dashed var(--primary-border);
+  word-break: break-word;
+  display: flex;
+  align-items: center;
+  box-shadow: inset 0 2px 4px rgba(8, 145, 178, 0.04);
+}
+
+/* --------------------------------------------------------------------------
+   Botones de Acción
+   -------------------------------------------------------------------------- */
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.btn-action {
+  width: 100%;
+  min-height: 48px;
+  background: #f1f5f9;
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  padding: 12px 20px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: var(--transition-fast);
+  box-shadow: var(--shadow-subtle);
+}
+
+.btn-action:hover {
+  background: #e2e8f0;
+  transform: translateY(-1px);
+}
+
+.btn-action:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #ffffff;
+  border: none;
+  box-shadow: var(--shadow-primary);
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+  box-shadow: var(--shadow-hover);
+}
+
+.btn-primary:active {
+  background: var(--primary-hover);
+}
+
+/* Accesibilidad Focus */
+.btn-action:focus-visible,
+.back-link:focus-visible,
+.btn-cam:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Optimización Pantallas Anchas (PC / Tablet)
+   -------------------------------------------------------------------------- */
+@media (min-width: 640px) {
+  body {
+    padding: 32px 20px;
+  }
+
+  .main-container {
+    max-width: 640px;
+    gap: 20px;
+  }
+
+  .header {
+    padding: 32px 24px;
+  }
+
+  .header h1 {
+    font-size: 1.85rem;
+  }
+
+  .logo-simbolo {
+    width: 108px;
+    height: 108px;
+  }
+
+  .button-group {
+    flex-direction: row;
+  }
+
+  .btn-action {
+    width: auto;
+    flex: 1;
+  }
+}
