@@ -1,26 +1,28 @@
 /* ==========================================================================
-   BARRA DE NAVEGACIÓN INFERIOR TEMÁTICA (Compartida por toda la app)
+   BARRA DE NAVEGACIÓN FLOTANTE TEMÁTICA (css/navbar.css)
    ========================================================================== */
 .app-container.app-container--with-nav {
-  padding-bottom: calc(90px + env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
 }
 
 .bottom-nav {
   position: fixed;
-  bottom: 0;
+  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
   left: 50%;
   transform: translateX(-50%);
-  width: 100%;
-  max-width: 460px;
+  width: calc(100% - 24px);
+  max-width: 436px;
   background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-top: 1px solid var(--border-light);
-  box-shadow: 0 -6px 22px rgba(15, 23, 42, 0.06);
+  border: 1px solid var(--border-light);
+  border-radius: 28px;
+  box-shadow: 0 10px 28px -6px rgba(15, 23, 42, 0.12),
+              0 4px 10px -2px rgba(15, 23, 42, 0.05);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  padding: 8px 12px calc(10px + env(safe-area-inset-bottom, 0px));
+  gap: 6px;
+  padding: 6px;
   z-index: 50;
 }
 
@@ -31,10 +33,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  min-height: 56px;
+  gap: 3px;
+  min-height: 54px;
   padding: 6px 4px;
-  border-radius: 16px;
+  border-radius: 22px;
   font-size: 0.74rem;
   font-weight: 700;
   color: var(--text-muted);
@@ -62,7 +64,7 @@
   transition: fill 0.18s ease;
 }
 
-/* Estado activo: píldora turquesa, relleno dual SVG y acento superior ámbar */
+/* Estado activo: píldora turquesa suave, relleno dual y barra superior ámbar */
 .bottom-nav-item.active {
   background-color: var(--primary-soft);
   color: var(--primary-dark);
@@ -70,16 +72,16 @@
 }
 
 .bottom-nav-item.active .nav-svg-fill {
-  fill: rgba(8, 145, 178, 0.18);
+  fill: rgba(8, 145, 178, 0.2);
 }
 
 .bottom-nav-item.active::after {
   content: "";
   position: absolute;
   top: 0;
-  width: 24px;
-  height: 3px;
-  border-radius: 0 0 999px 999px;
+  width: 26px;
+  height: 3.5px;
+  border-radius: 999px;
   background-color: var(--amber);
 }
 
