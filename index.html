@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Traductor LSEC — Asistente de Lengua de Señas Ecuatoriana</title>
+  <meta name="description" content="Aprende y traduce el abecedario de la Lengua de Señas Ecuatoriana (LSEC) en tiempo real junto al Cóndor Andino." />
+
+  <!-- Tipografía redondeada y legible (Google Fonts) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-container">
+    <!-- Cabecera protagonista con el Cóndor Andino desplegado -->
+    <header class="hero-card" aria-label="Bienvenida a Traductor LSEC">
+      <div class="hero-pill">
+        <span class="hero-pill-dot" aria-hidden="true"></span>
+        <span>ECUADOR • LSEC EDGE AI 3D</span>
+      </div>
+
+      <div class="condor-stage">
+        <img src="images/condor_logo.jpg" alt="Cóndor Andino con las alas abiertas, guía de Traductor LSEC" class="condor-hero-img" />
+      </div>
+
+      <div class="hero-titles">
+        <h1>¡Bienvenido!</h1>
+        <p>Asistente de Lengua de Señas Ecuatoriana</p>
+      </div>
+
+      <div class="condor-bubble">
+        ¡Hola! Soy tu guía LSEC. Despliega tus alas al aprendizaje y practiquemos juntos el abecedario en señas.
+      </div>
+    </header>
+
+    <!-- Módulo interactivo principal -->
+    <main aria-label="Módulos de aprendizaje">
+      <h2 class="section-label">Módulo disponible</h2>
+
+      <a href="abecedario.html" class="module-btn-card">
+        <div class="module-icon" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" />
+            <path d="m9 9.5 2-4 2 4" />
+            <path d="M9.5 8.5h3" />
+          </svg>
+        </div>
+
+        <div class="module-content">
+          <div class="module-top">
+            <h2>Abecedario LSEC</h2>
+            <span class="module-tag">IA 3D</span>
+          </div>
+          <p>Practica letras en vivo y forma palabras con tu cámara.</p>
+        </div>
+
+        <div class="module-cta-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14" />
+            <path d="m12 5 7 7-7 7" />
+          </svg>
+        </div>
+      </a>
+    </main>
+
+    <!-- Guía visual compacta de 3 pasos -->
+    <section class="tips-card" aria-label="Guía rápida de uso">
+      <h2 class="tips-card-title">Consejo rápido para empezar</h2>
+
+      <div class="tips-grid">
+        <div class="tip-step">
+          <div class="tip-icon tip-icon--sun" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2v2" /><path d="M12 20v2" />
+              <path d="m4.93 4.93 1.41 1.41" /><path d="m17.66 17.66 1.41 1.41" />
+              <path d="M2 12h2" /><path d="M20 12h2" />
+              <path d="m6.34 17.66-1.41 1.41" /><path d="m19.07 4.93-1.41 1.41" />
+            </svg>
+          </div>
+          <strong>1. Buena luz</strong>
+          <span>Ilumina tu mano de frente</span>
+        </div>
+
+        <div class="tip-step">
+          <div class="tip-icon tip-icon--hand" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 11V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2v0" />
+              <path d="M14 10V4a2 2 0 0 0-2-2 2 2 0 0 0-2 2v2" />
+              <path d="M10 10.5V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2v8" />
+              <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15" />
+            </svg>
+          </div>
+          <strong>2. Mano visible</strong>
+          <span>Céntrala en el recuadro</span>
+        </div>
+
+        <div class="tip-step">
+          <div class="tip-icon tip-icon--clock" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="13" r="8" />
+              <path d="M12 9v4l2 2" />
+              <path d="M5 3 2 6" /><path d="m22 6-3-3" />
+            </svg>
+          </div>
+          <strong>3. Mantén 1 seg</strong>
+          <span>Sostén firme la seña</span>
+        </div>
+      </div>
+    </section>
+
+    <footer class="home-footer">
+      Traductor LSEC · Educación inclusiva
+    </footer>
+  </div>
+</body>
+</html>

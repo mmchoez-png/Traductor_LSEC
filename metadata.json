@@ -1,0 +1,8 @@
+{
+  "name": "LSEC Sign Language Assistant",
+  "description": "Reconocimiento de Lengua de Señas Ecuatoriana con IA, diseñado para accesibilidad y fluidez.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

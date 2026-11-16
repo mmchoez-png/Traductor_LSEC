@@ -1,0 +1,870 @@
+/* ==========================================================================
+   TRADUCTOR LSEC — Hoja de Estilos Unificada (Mobile-First)
+   Estilo educativo moderno (EdTech / App Móvil)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. VARIABLES DE TEMA (Modifica estos valores para ajustar colores)
+   -------------------------------------------------------------------------- */
+:root {
+  /* Paleta institucional y acentos del Cóndor Andino */
+  --primary: #0891B2;             /* Azul-turquesa vibrante */
+  --primary-dark: #0E7490;        /* Turquesa profundo (hover / borde 3D) */
+  --primary-soft: #ECFEFF;        /* Tinte turquesa claro */
+
+  --amber: #F59E0B;               /* Dorado / ámbar cálido */
+  --amber-dark: #D97706;          /* Ámbar profundo */
+  --amber-soft: #FFFBEB;          /* Crema dorado suave */
+  --amber-border: #FDE68A;        /* Borde suave para burbujas */
+
+  /* Estados de retroalimentación */
+  --success: #10B981;             /* Verde esmeralda */
+  --success-soft: #D1FAE5;        /* Fondo verde suave */
+  --danger: #EF4444;              /* Rojo suave */
+  --danger-soft: #FEE2E2;         /* Fondo rojo suave */
+
+  /* Superficies y tipografía */
+  --bg-page: #F4F7FB;             /* Fondo general descansado */
+  --bg-card: #FFFFFF;             /* Tarjetas limpias */
+  --bg-slate: #F8FAFC;            /* Fondo pizarra moderna */
+  --text-main: #0F172A;           /* Texto principal */
+  --text-secondary: #475569;      /* Texto secundario */
+  --text-muted: #64748B;          /* Texto auxiliar */
+  --border-light: #E2E8F0;        /* Bordes finos */
+
+  /* Geometría y sombras */
+  --radius-card: 22px;
+  --radius-btn: 16px;
+  --shadow-card: 0 10px 28px -6px rgba(15, 23, 42, 0.07),
+                 0 4px 10px -2px rgba(15, 23, 42, 0.04);
+  --shadow-primary: 0 8px 20px -4px rgba(8, 145, 178, 0.35);
+
+  --font-main: 'Plus Jakarta Sans', 'Nunito', system-ui, -apple-system, sans-serif;
+}
+
+/* --------------------------------------------------------------------------
+   2. BASE MOBILE-FIRST Y ACCESIBILIDAD
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-page);
+  background-image:
+    radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.1) 0%, transparent 45%),
+    radial-gradient(circle at 90% 25%, rgba(8, 145, 178, 0.08) 0%, transparent 40%);
+  color: var(--text-main);
+  line-height: 1.5;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  overflow-x: hidden;
+}
+
+button,
+a {
+  font-family: inherit;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Contenedor principal tipo App Móvil */
+.app-container {
+  width: 100%;
+  max-width: 460px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 16px 16px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* --------------------------------------------------------------------------
+   3. PANTALLA PRINCIPAL (index.html)
+   -------------------------------------------------------------------------- */
+.hero-card {
+  background-color: var(--bg-card);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-card);
+  padding: 20px 18px 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+
+/* Píldora superior de contexto */
+.hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background-color: var(--amber-soft);
+  border: 1px solid var(--amber-border);
+  color: var(--amber-dark);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.hero-pill-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--amber);
+}
+
+/* Escenario panorámico para el Cóndor con alas abiertas (sin recorte circular) */
+.condor-stage {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 0 2px;
+}
+
+.condor-stage::before {
+  content: "";
+  position: absolute;
+  width: 210px;
+  height: 110px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.24) 0%, rgba(245, 158, 11, 0) 72%);
+  filter: blur(8px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.condor-hero-img {
+  position: relative;
+  z-index: 1;
+  width: clamp(240px, 68vw, 270px);
+  height: auto;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  filter: drop-shadow(0 12px 18px rgba(245, 158, 11, 0.22));
+  animation: floatCondor 4.2s ease-in-out infinite;
+}
+
+@keyframes floatCondor {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+.hero-titles h1 {
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.hero-titles p {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 3px;
+}
+
+/* Burbuja educativa con flecha apuntando hacia el Cóndor */
+.condor-bubble {
+  position: relative;
+  width: 100%;
+  margin-top: 4px;
+  background-color: var(--amber-soft);
+  border: 1.5px solid var(--amber-border);
+  border-radius: 18px;
+  padding: 13px 15px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #78350F;
+  line-height: 1.45;
+}
+
+.condor-bubble::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 14px;
+  height: 14px;
+  background-color: var(--amber-soft);
+  border-left: 1.5px solid var(--amber-border);
+  border-top: 1.5px solid var(--amber-border);
+}
+
+/* Tarjeta interactiva de módulo tipo botón 3D táctil */
+.section-label {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--text-secondary);
+  padding: 0 4px;
+  margin-bottom: 8px;
+}
+
+.module-btn-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  color: inherit;
+  background-color: var(--bg-card);
+  border-radius: var(--radius-card);
+  border: 1.5px solid #BAE6FD;
+  border-bottom: 5px solid var(--primary);
+  padding: 16px;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.14s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.14s ease,
+              background-color 0.14s ease;
+  min-height: 82px;
+}
+
+.module-btn-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 26px -8px rgba(8, 145, 178, 0.25);
+}
+
+.module-btn-card:active {
+  transform: translateY(2px);
+  border-bottom-width: 2px;
+}
+
+.module-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--primary-soft), #CFFAFE);
+  color: var(--primary-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.module-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.module-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.module-content h2 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.25;
+}
+
+.module-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background-color: var(--success-soft);
+  color: #047857;
+  font-size: 0.7rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.module-content p {
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.module-cta-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background-color: var(--primary);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Guía visual compacta de 3 pasos */
+.tips-card {
+  background-color: var(--bg-card);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-card);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tips-card-title {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.tip-step {
+  background-color: var(--bg-slate);
+  border: 1px solid #EEF2F6;
+  border-radius: 16px;
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 7px;
+}
+
+.tip-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tip-icon--sun {
+  background-color: #FEF3C7;
+  color: var(--amber-dark);
+}
+
+.tip-icon--hand {
+  background-color: var(--primary-soft);
+  color: var(--primary-dark);
+}
+
+.tip-icon--clock {
+  background-color: var(--success-soft);
+  color: #047857;
+}
+
+.tip-step strong {
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+
+.tip-step span {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  line-height: 1.25;
+}
+
+.home-footer {
+  margin-top: auto;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding-top: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   4. PANTALLA DEL TRADUCTOR (abecedario.html) — Ergonomía sin scroll
+   -------------------------------------------------------------------------- */
+.app-container--workspace {
+  padding: 10px 14px 14px;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+/* App Top Bar compacta */
+.workspace-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 44px;
+}
+
+.pill-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 40px;
+  padding: 0 13px;
+  border-radius: 999px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-light);
+  color: var(--text-main);
+  text-decoration: none;
+  font-size: 0.84rem;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+  white-space: nowrap;
+  transition: transform 0.14s ease, background-color 0.14s ease;
+}
+
+.pill-back-btn:active {
+  transform: scale(0.96);
+  background-color: #F1F5F9;
+}
+
+.workspace-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.015em;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.help-circle-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--amber-soft);
+  border: 1.5px solid var(--amber-border);
+  color: var(--amber-dark);
+  font-size: 1.05rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.15);
+  transition: transform 0.14s ease, background-color 0.14s ease;
+  flex-shrink: 0;
+}
+
+.help-circle-btn:active {
+  transform: scale(0.93);
+}
+
+/* Consejo rápido colapsable del Cóndor (no ocupa espacio fijo si está cerrado) */
+.quick-tip-banner {
+  background-color: var(--amber-soft);
+  border: 1.5px solid var(--amber-border);
+  border-radius: 16px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #78350F;
+  line-height: 1.35;
+}
+
+.quick-tip-banner[hidden] {
+  display: none;
+}
+
+.quick-tip-close {
+  margin-left: auto;
+  min-width: 30px;
+  min-height: 30px;
+  border: none;
+  border-radius: 8px;
+  background-color: rgba(217, 119, 6, 0.12);
+  color: #78350F;
+  font-weight: 800;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* Visor de Cámara estilo HUD (video-wrapper) */
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  height: 37vh;
+  max-height: 37vh;
+  min-height: 195px;
+  background-color: #0F172A;
+  border-radius: var(--radius-card);
+  border: 2.5px solid var(--primary);
+  box-shadow: var(--shadow-card), 0 0 0 4px rgba(8, 145, 178, 0.1);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* Video y Canvas superpuestos exactamente (conserva IDs de app.js) */
+#webcam,
+#output_canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1);
+}
+
+#webcam {
+  z-index: 1;
+}
+
+#output_canvas {
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* Fondo de espera cuando la cámara está apagada */
+.camera-placeholder {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #94A3B8;
+  font-size: 0.82rem;
+  font-weight: 600;
+  background: radial-gradient(circle at center, #1E293B 0%, #0F172A 100%);
+}
+
+/* Botón flotante glassmorphism para toggleCamera() */
+.hud-toggle-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 0 13px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.56);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #FFFFFF;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
+  transition: transform 0.14s ease, background-color 0.14s ease;
+}
+
+.hud-toggle-btn:hover {
+  background: rgba(8, 145, 178, 0.82);
+}
+
+.hud-toggle-btn:active {
+  transform: scale(0.95);
+}
+
+/* Tarjeta horizontal compacta de Detección + Mini-Avatar Panorámico del Cóndor */
+.detection-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: var(--bg-card);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-card);
+  padding: 10px 14px;
+}
+
+/* Contenedor panorámico obligatorio: 72px x 46px sin recorte circular */
+.mini-condor-box {
+  width: 72px;
+  height: 46px;
+  border-radius: 12px;
+  background-color: var(--amber-soft);
+  border: 1px solid var(--amber-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 4px;
+  flex-shrink: 0;
+}
+
+.mini-condor-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  display: block;
+}
+
+.detection-details {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.detection-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.detection-kicker {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+/* Badge moderno para la confianza (#output-confidence) */
+.confidence-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background-color: var(--primary-soft);
+  border: 1px solid #A5F3FC;
+  color: var(--primary-dark);
+  font-size: 0.72rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* Resultado principal (#output-class) */
+.detection-class {
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.25;
+  word-break: break-word;
+}
+
+/* Constructor de palabras estilo pizarra moderna (#sentence-display) */
+.board-card {
+  background-color: var(--bg-card);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-card);
+  padding: 10px 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.board-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: var(--text-secondary);
+}
+
+.board-sub {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.board-surface {
+  background-color: var(--bg-slate);
+  border: 1.5px solid var(--border-light);
+  border-radius: 14px;
+  padding: 10px 12px;
+  min-height: 54px;
+  max-height: 82px;
+  overflow-y: auto;
+  display: flex;
+  align-items: center;
+}
+
+#sentence-display {
+  width: 100%;
+  font-size: 1.18rem;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  word-break: break-word;
+}
+
+/* Panel de Controles Ergonómicos (Grid compacto de 2 filas) */
+.controls-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-top: auto;
+}
+
+.controls-row-1 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.controls-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1.85fr;
+  gap: 9px;
+}
+
+.btn-action {
+  min-height: 50px;
+  padding: 8px 10px;
+  border-radius: var(--radius-btn);
+  border: 1.5px solid var(--border-light);
+  border-bottom: 3px solid #CBD5E1;
+  background-color: var(--bg-card);
+  color: var(--text-main);
+  font-size: 0.82rem;
+  font-weight: 800;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.12s ease, background-color 0.12s ease;
+}
+
+.btn-action:active {
+  transform: translateY(2px) scale(0.97);
+  border-bottom-width: 1.5px;
+}
+
+.btn-action--primary-soft {
+  background-color: var(--primary-soft);
+  border-color: #A5F3FC;
+  border-bottom-color: var(--primary);
+  color: var(--primary-dark);
+}
+
+.btn-action--primary-soft:hover {
+  background-color: #CFFAFE;
+}
+
+.btn-action--neutral:hover {
+  background-color: var(--bg-slate);
+}
+
+.btn-action--clear {
+  flex-direction: row;
+  gap: 6px;
+  background-color: #FFF5F5;
+  border-color: #FECACA;
+  border-bottom-color: #F87171;
+  color: #B91C1C;
+  font-size: 0.84rem;
+}
+
+.btn-action--clear:hover {
+  background-color: var(--danger-soft);
+}
+
+.btn-action--speak {
+  flex-direction: row;
+  gap: 8px;
+  background: linear-gradient(180deg, #06B6D4 0%, var(--primary) 100%);
+  border: 1px solid var(--primary-dark);
+  border-bottom: 4px solid #155E75;
+  color: #FFFFFF;
+  font-size: 0.94rem;
+  box-shadow: var(--shadow-primary);
+}
+
+.btn-action--speak:hover {
+  filter: brightness(1.04);
+}
+
+/* --------------------------------------------------------------------------
+   5. RESPONSIVIDAD (360px hasta escritorio) Y REDUCCIÓN DE MOVIMIENTO
+   -------------------------------------------------------------------------- */
+@media (max-width: 380px) {
+  .app-container {
+    padding: 12px 12px 18px;
+    gap: 12px;
+  }
+
+  .app-container--workspace {
+    padding: 8px 10px 12px;
+    gap: 8px;
+  }
+
+  .tips-grid {
+    gap: 6px;
+  }
+
+  .tip-step {
+    padding: 10px 5px;
+  }
+
+  .video-wrapper {
+    min-height: 175px;
+  }
+
+  .btn-action {
+    min-height: 46px;
+    font-size: 0.78rem;
+  }
+
+  .btn-action--speak {
+    font-size: 0.88rem;
+  }
+}
+
+@media (min-width: 640px) {
+  .app-container {
+    padding: 24px 18px 28px;
+  }
+
+  .app-container--workspace {
+    padding: 18px;
+    gap: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .condor-hero-img {
+    animation: none;
+  }
+
+  .module-btn-card,
+  .pill-back-btn,
+  .help-circle-btn,
+  .hud-toggle-btn,
+  .btn-action {
+    transition: none;
+  }
+}
