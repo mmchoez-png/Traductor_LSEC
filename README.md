@@ -12,6 +12,7 @@ El sistema integra visión artificial 3D e inteligencia artificial ejecutada dir
 
 ---
 
+
 ## 🎯 Objetivos
 
 ### Objetivo General
