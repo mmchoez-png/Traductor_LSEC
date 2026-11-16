@@ -1,0 +1,70 @@
+/* ==========================================================================
+   BARRA DE NAVEGACIÓN INFERIOR (Compartida por index, abecedario y cartas)
+   ========================================================================== */
+
+/* Reserva espacio inferior en cualquier pantalla para que la barra no tape contenido */
+.app-container.app-container--with-nav {
+  padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 460px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid var(--border-light);
+  box-shadow: 0 -4px 18px rgba(15, 23, 42, 0.05);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  padding: 8px 10px calc(10px + env(safe-area-inset-bottom, 0px));
+  z-index: 50;
+}
+
+.bottom-nav-item {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-height: 54px;
+  padding: 6px 4px;
+  border-radius: 16px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  transition: background-color 0.16s ease, color 0.16s ease, transform 0.12s ease;
+}
+
+.bottom-nav-item:hover {
+  background-color: var(--bg-slate);
+  color: var(--text-main);
+}
+
+.bottom-nav-item:active {
+  transform: scale(0.95);
+}
+
+.bottom-nav-item .nav-ico {
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+/* Estado activo (píldora turquesa suave) */
+.bottom-nav-item.active {
+  background-color: var(--primary-soft);
+  color: var(--primary-dark);
+  font-weight: 800;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bottom-nav-item {
+    transition: none;
+  }
+}

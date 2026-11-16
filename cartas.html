@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cartas LSEC — Aprende y Practica</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/cartas.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <script src="js/navbar.js" defer></script>
+</head>
+<body>
+  <div class="app-container app-container--with-nav">
+    <!-- Top Bar -->
+    <header class="workspace-topbar">
+      <a href="index.html" class="pill-back-btn">← Inicio</a>
+      <h1 class="workspace-title">Cartas LSEC</h1>
+      <div class="score-pill" id="learned-counter">⭐ 0</div>
+    </header>
+
+    <!-- Selector de Colecciones (estilo tarjetas educativas) -->
+    <section class="collections-strip" aria-label="Colecciones de señas">
+      <button type="button" class="cat-chip active" data-cat="abecedario" onclick="seleccionarCategoria('abecedario', this)">
+        🔤 Abecedario
+      </button>
+      <button type="button" class="cat-chip" data-cat="conversacion" onclick="seleccionarCategoria('conversacion', this)">
+        👋 Conversación
+      </button>
+      <button type="button" class="cat-chip" data-cat="preguntas" onclick="seleccionarCategoria('preguntas', this)">
+        ❓ Preguntas
+      </button>
+      <button type="button" class="cat-chip cat-chip--locked" onclick="mostrarAvisoBloqueado('Números y Familia')">
+        🔒 Más
+      </button>
+    </section>
+
+    <!-- Banner de Práctica (inspirado en "Let's put it into practice") -->
+    <a id="practice-banner-link" href="abecedario.html" class="practice-banner">
+      <div class="practice-banner-text">
+        <strong>¡Ponlo en práctica!</strong>
+        <span>Ponte a prueba con tu cámara en vivo</span>
+      </div>
+      <div class="practice-banner-icon">🎯</div>
+    </a>
+
+    <!-- Switch entre Carta 3D Giratoria y Lista Rápida -->
+    <div class="view-mode-bar">
+      <span id="card-position-label" class="view-mode-counter">Carta 1 de 30</span>
+      <div class="view-toggle-group">
+        <button type="button" id="btn-mode-flip" class="view-toggle-btn active" onclick="cambiarVistaCartas('flip')">🃏 Carta 3D</button>
+        <button type="button" id="btn-mode-list" class="view-toggle-btn" onclick="cambiarVistaCartas('list')">📋 Lista</button>
+      </div>
+    </div>
+
+    <!-- VISTA 1: CARTA ANIMADA QUE GIRA EN 3D -->
+    <section id="flip-deck-section" class="flip-stage-wrapper">
+      <div class="flip-scene" onclick="voltearCarta()">
+        <div id="flashcard-3d" class="flip-card">
+          <!-- CARA FRONTAL -->
+          <div class="flip-face flip-front">
+            <div class="flip-top-meta">
+              <span id="card-cat-badge" class="flip-badge">Abecedario LSEC</span>
+              <span class="flip-hint-tap">↻ Toca para girar</span>
+            </div>
+
+            <div class="flip-visual-center">
+              <div id="card-emoji" class="flip-emoji">🤟</div>
+              <div id="card-main-term" class="flip-term">A</div>
+              <p id="card-sub-hint" class="flip-sub">Letra del abecedario</p>
+            </div>
+
+            <div class="flip-bottom-actions" onclick="event.stopPropagation()">
+              <button type="button" class="btn-card-mini" onclick="pronunciarCartaActual()">🔊 Escuchar</button>
+              <button type="button" id="btn-mark-learned" class="btn-card-mini btn-card-star" onclick="alternarAprendida()">☆ Aprender</button>
+            </div>
+          </div>
+
+          <!-- CARA TRASERA (EXPLICACIÓN DE LA SEÑA) -->
+          <div class="flip-face flip-back">
+            <div class="flip-top-meta">
+              <span class="flip-badge flip-badge--gold">Guía del Cóndor</span>
+              <span class="flip-hint-tap">↻ Volver</span>
+            </div>
+
+            <div class="flip-back-body">
+              <div class="mini-condor-box mini-condor-box--sm">
+                <img src="images/condor_logo.jpg" alt="Cóndor guía" class="mini-condor-img" />
+              </div>
+              <h3 id="card-back-title" class="flip-back-title">Cómo hacer la seña "A"</h3>
+              <p id="card-back-desc" class="flip-back-desc">
+                Cierra los cuatro dedos sobre la palma formando un puño suave y coloca el pulgar recto apoyado al costado del dedo índice.
+              </p>
+            </div>
+
+            <div class="flip-bottom-actions" onclick="event.stopPropagation()">
+              <a id="btn-try-camera" href="abecedario.html?practicar=A" class="btn-card-try">📷 Probar en Cámara</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controles de navegación del mazo -->
+      <div class="deck-controls">
+        <button type="button" class="deck-btn" onclick="moverCarta(-1)">← Anterior</button>
+        <button type="button" class="deck-btn deck-btn--flip" onclick="voltearCarta()">🔄 Girar</button>
+        <button type="button" class="deck-btn" onclick="moverCarta(1)">Siguiente →</button>
+      </div>
+    </section>
+
+    <!-- VISTA 2: LISTA COMPLETA DE LA COLECCIÓN -->
+    <section id="list-deck-section" class="sign-list-card" hidden>
+      <div id="signs-list-container" class="signs-list"></div>
+    </section>
+  </div>
+
+  <!-- Barra de Navegación Inferior Tipo App Nativa -->
+  <nav class="bottom-nav" aria-label="Navegación principal">
+    <a href="index.html" class="bottom-nav-item">
+      <span class="nav-ico">🏠</span>
+      <span>Inicio</span>
+    </a>
+    <a href="abecedario.html" class="bottom-nav-item">
+      <span class="nav-ico">📷</span>
+      <span>Traductor</span>
+    </a>
+    <a href="cartas.html" class="bottom-nav-item active">
+      <span class="nav-ico">🃏</span>
+      <span>Cartas 3D</span>
+    </a>
+  </nav>
+
+  <script>
+    const MAZOS_LSEC = {
+      abecedario: [
+        { term: "A", emoji: "✊", sub: "Vocal • Mano cerrada", desc: "Cierra los cuatro dedos sobre la palma y apoya el pulgar recto al costado del índice." },
+        { term: "B", emoji: "🖐️", sub: "Consonante • Palma abierta", desc: "Extiende los cuatro dedos juntos hacia arriba y dobla el pulgar cruzando el centro de la palma." },
+        { term: "C", emoji: "🤏", sub: "Consonante • Forma curva", desc: "Curva todos los dedos y el pulgar formando claramente la silueta de una letra C." },
+        { term: "CH", emoji: "✌️", sub: "Dígrafo LSEC", desc: "Extiende índice y medio juntos formando una C abierta con el pulgar hacia el frente." },
+        { term: "D", emoji: "☝️", sub: "Consonante • Índice arriba", desc: "Levanta el dedo índice recto y une las yemas del pulgar con los dedos medio, anular y meñique." },
+        { term: "E", emoji: "✊", sub: "Vocal • Dedos flexionados", desc: "Flexiona las puntas de los cuatro dedos sobre el pulgar doblado contra la palma." },
+        { term: "F", emoji: "👌", sub: "Consonante • Pinza", desc: "Une la yema del índice con el pulgar formando un círculo y extiende los otros tres dedos." },
+        { term: "G", emoji: "👉", sub: "Consonante • Horizontal", desc: "Apunta el índice y el pulgar paralelos hacia un lado manteniendo los demás dedos cerrados." },
+        { term: "H", emoji: "👉", sub: "Consonante • Doble horizontal", desc: "Extiende índice y medio juntos en posición horizontal con el pulgar recogido." },
+        { term: "I", emoji: "🤙", sub: "Vocal • Meñique arriba", desc: "Cierra la mano en puño y levanta únicamente el dedo meñique recto hacia arriba." },
+        { term: "J", emoji: "🤙", sub: "Consonante • Con movimiento", desc: "Con el meñique levantado como en la I, traza en el aire la curva de una J hacia abajo." },
+        { term: "K", emoji: "✌️", sub: "Consonante", desc: "Levanta índice y medio en V y apoya la yema del pulgar entre ambos dedos." },
+        { term: "L", emoji: "👆", sub: "Consonante • Ángulo recto", desc: "Extiende el índice hacia arriba y el pulgar hacia un lado formando una L." },
+        { term: "LL", emoji: "👆", sub: "Dígrafo LSEC • Deslizamiento", desc: "Forma la letra L y realiza un breve desplazamiento lateral hacia afuera." },
+        { term: "M", emoji: "✊", sub: "Consonante • Tres dedos", desc: "Pasa los dedos índice, medio y anular doblados por encima del dedo pulgar." },
+        { term: "N", emoji: "✊", sub: "Consonante • Dos dedos", desc: "Pasa los dedos índice y medio doblados por encima del pulgar." },
+        { term: "Ñ", emoji: "✊", sub: "Consonante • Vibración", desc: "Realiza la postura de la N y añade un leve movimiento oscilante de muñeca." },
+        { term: "O", emoji: "👌", sub: "Vocal • Óvalo cerrado", desc: "Une las puntas de todos los dedos con el pulgar formando un óvalo cerrado." },
+        { term: "P", emoji: "👇", sub: "Consonante • Hacia abajo", desc: "Igual que la posición de la K, pero inclinando la muñeca para apuntar hacia abajo." },
+        { term: "Q", emoji: "👇", sub: "Consonante • Pinza abajo", desc: "Apunta el índice y el pulgar hacia abajo como una G invertida." },
+        { term: "R", emoji: "🤞", sub: "Consonante • Dedos cruzados", desc: "Levanta el dedo índice y cruza el dedo medio por detrás de él." },
+        { term: "RR", emoji: "🤞", sub: "Dígrafo LSEC • Vibración", desc: "Mantén los dedos cruzados de la R y realiza un movimiento corto hacia el costado." },
+        { term: "S", emoji: "✊", sub: "Consonante • Puño frontal", desc: "Cierra todos los dedos en puño y cruza el pulgar por delante de los dedos." },
+        { term: "T", emoji: "✊", sub: "Consonante • Pulgar entre dedos", desc: "Cierra el puño colocando el pulgar asomado entre el índice y el dedo medio." },
+        { term: "U", emoji: "✌️", sub: "Vocal • Dos dedos juntos", desc: "Levanta los dedos índice y medio completamente juntos y rectos hacia arriba." },
+        { term: "V", emoji: "✌️", sub: "Consonante • Separados", desc: "Levanta índice y medio separados formando una V." },
+        { term: "W", emoji: "🤟", sub: "Consonante • Tres dedos", desc: "Levanta índice, medio y anular separados mientras el pulgar sujeta el meñique." },
+        { term: "X", emoji: "☝️", sub: "Consonante • Gancho", desc: "Dobla el dedo índice en forma de gancho con el resto de la mano cerrada." },
+        { term: "Y", emoji: "🤙", sub: "Consonante • Pulgar y meñique", desc: "Extiende simultáneamente el pulgar y el meñique dejando los tres dedos centrales doblados." },
+        { term: "Z", emoji: "☝️", sub: "Consonante • Trazo en aire", desc: "Con el dedo índice extendido, dibuja en el aire el recorrido de una Z." }
+      ],
+      conversacion: [
+        { term: "Hola", emoji: "👋", sub: "Saludo cotidiano", desc: "Lleva la mano abierta cerca de la sien o frente y muévela suavemente hacia adelante con expresión amable." },
+        { term: "Buenos días", emoji: "🌅", sub: "Saludo matutino", desc: "Combina la seña de 'Bueno' (mano desde el mentón hacia adelante) seguida de 'Día' (brazo subiendo como el sol)." },
+        { term: "Buenas tardes", emoji: "🌇", sub: "Saludo vespertino", desc: "Realiza 'Bueno' y luego inclina la mano plana sobre el antebrazo simulando la caída de la tarde." },
+        { term: "Buenas noches", emoji: "🌙", sub: "Saludo nocturno", desc: "Realiza 'Bueno' y cruza ambas manos inclinadas frente al pecho indicando el descanso de la noche." },
+        { term: "Gracias", emoji: "🙏", sub: "Cortesía esencial", desc: "Toca suavemente el mentón con las yemas de los dedos de la mano abierta y muévela hacia adelante." },
+        { term: "Por favor", emoji: "🤲", sub: "Solicitud amable", desc: "Coloca la palma abierta sobre el centro del pecho y realiza un movimiento circular suave." },
+        { term: "Mucho gusto", emoji: "🤝", sub: "Presentación", desc: "Pasa la palma abierta en círculo sobre el pecho con expresión facial cálida." },
+        { term: "¿Cómo estás?", emoji: "😊", sub: "Cortesía", desc: "Coloca ambas manos con los puños cerrados frente al pecho y gira las muñecas hacia afuera levantando los pulgares." },
+        { term: "Perdón / Disculpa", emoji: "💛", sub: "Disculpa", desc: "Con la mano en forma de Y o palma suave, frota ligeramente el pecho o el mentón con gesto empático." },
+        { term: "Adiós", emoji: "👋", sub: "Despedida", desc: "Levanta la palma abierta a la altura del hombro y flexiona los dedos suavemente hacia adelante." }
+      ],
+      preguntas: [
+        { term: "¿Qué?", emoji: "❓", sub: "Pregunta básica", desc: "Coloca las palmas hacia arriba frente al cuerpo y muévelas ligeramente de lado a lado con cejas fruncidas." },
+        { term: "¿Quién?", emoji: "🧑", sub: "Identidad", desc: "Apunta con el dedo índice cerca de los labios haciendo un pequeño círculo mientras mantienes expresión interrogativa." },
+        { term: "¿Dónde?", emoji: "📍", sub: "Ubicación", desc: "Levanta el dedo índice hacia arriba y muévelo suavemente de izquierda a derecha." },
+        { term: "¿Cuándo?", emoji: "🗓️", sub: "Tiempo", desc: "Gira el dedo índice alrededor del índice de la otra mano y finaliza tocando la punta." },
+        { term: "¿Cómo?", emoji: "🤔", sub: "Modo o manera", desc: "Coloca los dorsos de ambas manos juntas frente al pecho y gíralas hasta quedar con las palmas hacia arriba." },
+        { term: "¿Por qué?", emoji: "💭", sub: "Causa o motivo", desc: "Toca la frente con las yemas de los dedos y separa la mano hacia adelante formando una Y." },
+        { term: "¿Cuántos?", emoji: "🔢", sub: "Cantidad", desc: "Abre los dedos de la mano hacia arriba repetidamente desde un puño cerrado." },
+        { term: "¿Cuál?", emoji: "⚖️", sub: "Elección", desc: "Alterna ambos pulgares hacia arriba frente a ti como sopesando dos opciones." }
+      ]
+    };
+
+    let categoriaActual = "abecedario";
+    let indiceCarta = 0;
+    let vistaActual = "flip";
+    let aprendidas = new Set(JSON.parse(localStorage.getItem("lsec_aprendidas") || "[]"));
+
+    function guardarProgreso() {
+      localStorage.setItem("lsec_aprendidas", JSON.stringify([...aprendidas]));
+      document.getElementById("learned-counter").textContent = `⭐ ${aprendidas.size}`;
+    }
+
+    function seleccionarCategoria(cat, btn) {
+      categoriaActual = cat;
+      indiceCarta = 0;
+      document.querySelectorAll(".cat-chip").forEach(c => c.classList.remove("active"));
+      if (btn) btn.classList.add("active");
+      document.getElementById("flashcard-3d").classList.remove("is-flipped");
+      renderizarCarta();
+      renderizarLista();
+    }
+
+    function renderizarCarta() {
+      const lista = MAZOS_LSEC[categoriaActual];
+      const item = lista[indiceCarta];
+      const clave = `${categoriaActual}:${item.term}`;
+      const nombresCat = {
+        abecedario: "Abecedario LSEC",
+        conversacion: "Conversación",
+        preguntas: "Preguntas LSEC"
+      };
+
+      document.getElementById("card-position-label").textContent = `Carta ${indiceCarta + 1} de ${lista.length}`;
+      document.getElementById("card-cat-badge").textContent = nombresCat[categoriaActual];
+      document.getElementById("card-emoji").textContent = item.emoji;
+      document.getElementById("card-main-term").textContent = item.term;
+      document.getElementById("card-sub-hint").textContent = item.sub;
+      document.getElementById("card-back-title").textContent = `Seña: "${item.term}"`;
+      document.getElementById("card-back-desc").textContent = item.desc;
+
+      const btnTry = document.getElementById("btn-try-camera");
+      btnTry.href = `abecedario.html?practicar=${encodeURIComponent(item.term)}`;
+
+      const btnStar = document.getElementById("btn-mark-learned");
+      if (aprendidas.has(clave)) {
+        btnStar.textContent = "⭐ Aprendida";
+        btnStar.classList.add("learned");
+      } else {
+        btnStar.textContent = "☆ Aprender";
+        btnStar.classList.remove("learned");
+      }
+    }
+
+    function renderizarLista() {
+      const lista = MAZOS_LSEC[categoriaActual];
+      const cont = document.getElementById("signs-list-container");
+      cont.innerHTML = lista.map((item, idx) => {
+        const aprendida = aprendidas.has(`${categoriaActual}:${item.term}`);
+        return `
+          <button type="button" class="sign-row-btn" onclick="abrirDesdeLista(${idx})">
+            <span class="sign-row-left">
+              <span class="sign-row-emoji">${item.emoji}</span>
+              <span class="sign-row-term">${item.term}</span>
+            </span>
+            <span class="sign-row-right">
+              ${aprendida ? '<span class="row-star">⭐</span>' : ''}
+              <span class="row-chevron">›</span>
+            </span>
+          </button>
+        `;
+      }).join("");
+    }
+
+    function abrirDesdeLista(idx) {
+      indiceCarta = idx;
+      cambiarVistaCartas("flip");
+      renderizarCarta();
+      setTimeout(() => {
+        document.getElementById("flashcard-3d").classList.add("is-flipped");
+      }, 150);
+    }
+
+    function voltearCarta() {
+      document.getElementById("flashcard-3d").classList.toggle("is-flipped");
+    }
+
+    function moverCarta(delta) {
+      const total = MAZOS_LSEC[categoriaActual].length;
+      indiceCarta = (indiceCarta + delta + total) % total;
+      const card = document.getElementById("flashcard-3d");
+      card.classList.remove("is-flipped");
+      renderizarCarta();
+    }
+
+    function pronunciarCartaActual() {
+      const item = MAZOS_LSEC[categoriaActual][indiceCarta];
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(item.term.toLowerCase());
+      u.lang = "es-ES";
+      u.rate = 0.95;
+      window.speechSynthesis.speak(u);
+    }
+
+    function alternarAprendida() {
+      const item = MAZOS_LSEC[categoriaActual][indiceCarta];
+      const clave = `${categoriaActual}:${item.term}`;
+      if (aprendidas.has(clave)) {
+        aprendidas.delete(clave);
+      } else {
+        aprendidas.add(clave);
+      }
+      guardarProgreso();
+      renderizarCarta();
+      renderizarLista();
+    }
+
+    function cambiarVistaCartas(modo) {
+      vistaActual = modo;
+      document.getElementById("flip-deck-section").hidden = modo !== "flip";
+      document.getElementById("list-deck-section").hidden = modo !== "list";
+      document.getElementById("btn-mode-flip").classList.toggle("active", modo === "flip");
+      document.getElementById("btn-mode-list").classList.toggle("active", modo === "list");
+    }
+
+    function mostrarAvisoBloqueado(nombre) {
+      alert(`🔒 El módulo "${nombre}" se desbloqueará en la siguiente actualización de Traductor LSEC.`);
+    }
+
+    guardarProgreso();
+    renderizarCarta();
+    renderizarLista();
+  </script>
+</body>
+</html>

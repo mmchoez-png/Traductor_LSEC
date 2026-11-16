@@ -11,7 +11,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
 
+  <!-- Hojas de estilo modulares -->
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/traductor.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+
+  <!-- Barra de navegación inferior compartida -->
+  <script src="navbar.js" defer></script>
 
   <!-- Dependencias MediaPipe Hands -->
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
@@ -25,7 +31,7 @@
   <script src="app.js" defer></script>
 </head>
 <body>
-  <div class="app-container app-container--workspace">
+  <div class="app-container app-container--workspace app-container--with-nav">
     <!-- App Top Bar compacta -->
     <header class="workspace-topbar">
       <a href="index.html" class="pill-back-btn" aria-label="Volver al inicio">
@@ -39,6 +45,12 @@
         💡
       </button>
     </header>
+
+    <!-- Banner de objetivo si el usuario llega desde Cartas 3D (?practicar=...) -->
+    <div id="target-practice-pill" class="target-practice-banner" hidden>
+      <span>🎯 Practicando seña: <strong id="target-sign-name">A</strong></span>
+      <button type="button" onclick="this.parentElement.setAttribute('hidden', '')" aria-label="Cerrar objetivo">✕</button>
+    </div>
 
     <!-- Consejo rápido del Cóndor (desplegable bajo demanda) -->
     <aside id="condor-quick-tip" class="quick-tip-banner" hidden>
@@ -161,6 +173,19 @@
         btn.setAttribute('aria-expanded', 'false');
       }
     }
+
+    (function mostrarObjetivoDesdeCarta() {
+      const params = new URLSearchParams(window.location.search);
+      const sena = params.get('practicar');
+      if (sena) {
+        const pill = document.getElementById('target-practice-pill');
+        const label = document.getElementById('target-sign-name');
+        if (pill && label) {
+          label.textContent = sena;
+          pill.removeAttribute('hidden');
+        }
+      }
+    })();
   </script>
 </body>
 </html>

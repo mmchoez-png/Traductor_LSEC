@@ -1,0 +1,324 @@
+/* ==========================================================================
+   PANTALLA PRINCIPAL (index.html)
+   ========================================================================== */
+.hero-card {
+  background-color: var(--bg-card);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-card);
+  padding: 20px 18px 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+
+.hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background-color: var(--amber-soft);
+  border: 1px solid var(--amber-border);
+  color: var(--amber-dark);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.hero-pill-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--amber);
+}
+
+/* Escenario panorámico para el Cóndor con alas abiertas */
+.condor-stage {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 0 2px;
+}
+
+.condor-stage::before {
+  content: "";
+  position: absolute;
+  width: 210px;
+  height: 110px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.24) 0%, rgba(245, 158, 11, 0) 72%);
+  filter: blur(8px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.condor-hero-img {
+  position: relative;
+  z-index: 1;
+  width: clamp(240px, 68vw, 270px);
+  height: auto;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  filter: drop-shadow(0 12px 18px rgba(245, 158, 11, 0.22));
+  animation: floatCondor 4.2s ease-in-out infinite;
+}
+
+@keyframes floatCondor {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+.hero-titles h1 {
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.hero-titles p {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 3px;
+}
+
+/* Burbuja educativa con flecha apuntando hacia el Cóndor */
+.condor-bubble {
+  position: relative;
+  width: 100%;
+  margin-top: 4px;
+  background-color: var(--amber-soft);
+  border: 1.5px solid var(--amber-border);
+  border-radius: 18px;
+  padding: 13px 15px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #78350F;
+  line-height: 1.45;
+}
+
+.condor-bubble::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 14px;
+  height: 14px;
+  background-color: var(--amber-soft);
+  border-left: 1.5px solid var(--amber-border);
+  border-top: 1.5px solid var(--amber-border);
+}
+
+/* Tarjeta interactiva de módulo tipo botón 3D táctil */
+.section-label {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--text-secondary);
+  padding: 0 4px;
+  margin-bottom: 8px;
+}
+
+.module-btn-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  color: inherit;
+  background-color: var(--bg-card);
+  border-radius: var(--radius-card);
+  border: 1.5px solid #BAE6FD;
+  border-bottom: 5px solid var(--primary);
+  padding: 16px;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.14s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.14s ease,
+              background-color 0.14s ease;
+  min-height: 82px;
+}
+
+.module-btn-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 26px -8px rgba(8, 145, 178, 0.25);
+}
+
+.module-btn-card:active {
+  transform: translateY(2px);
+  border-bottom-width: 2px;
+}
+
+.module-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--primary-soft), #CFFAFE);
+  color: var(--primary-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.module-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.module-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.module-content h2 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.25;
+}
+
+.module-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background-color: var(--success-soft);
+  color: #047857;
+  font-size: 0.7rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.module-content p {
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.module-cta-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background-color: var(--primary);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Guía visual compacta de 3 pasos */
+.tips-card {
+  background-color: var(--bg-card);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-card);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tips-card-title {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.tip-step {
+  background-color: var(--bg-slate);
+  border: 1px solid #EEF2F6;
+  border-radius: 16px;
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 7px;
+}
+
+.tip-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tip-icon--sun {
+  background-color: #FEF3C7;
+  color: var(--amber-dark);
+}
+
+.tip-icon--hand {
+  background-color: var(--primary-soft);
+  color: var(--primary-dark);
+}
+
+.tip-icon--clock {
+  background-color: var(--success-soft);
+  color: #047857;
+}
+
+.tip-step strong {
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+
+.tip-step span {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  line-height: 1.25;
+}
+
+.home-footer {
+  margin-top: auto;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding-top: 4px;
+}
+
+@media (max-width: 380px) {
+  .tips-grid {
+    gap: 6px;
+  }
+
+  .tip-step {
+    padding: 10px 5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .condor-hero-img {
+    animation: none;
+  }
+
+  .module-btn-card {
+    transition: none;
+  }
+}

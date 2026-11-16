@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Avatar LSEC - Prueba de Señas Corregidas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/avatar.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <script src="js/navbar.js" defer></script>
+  
+  <!-- Dependencias ONNX Runtime para prueba en app.js -->
+  <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.19.2/dist/ort.min.js"></script>
+</head>
+<body>
+  <div class="app-container app-container--workspace app-container--with-nav">
+    <!-- Top Bar compacta -->
+    <header class="workspace-topbar">
+      <a href="index.html" class="pill-back-btn">← Inicio</a>
+      <h1 class="workspace-title">Avatar LSEC (Pruebas)</h1>
+      <button type="button" class="help-circle-btn" onclick="alternarConsejoCondor()" aria-label="Mostrar consejo">
+        💡
+      </button>
+    </header>
+
+    <!-- Consejo rápido del Cóndor Andino -->
+    <aside id="condor-quick-tip" class="quick-tip-banner" hidden>
+      <div class="mini-condor-box" aria-hidden="true">
+        <img src="images/condor_logo.jpg" alt="Cóndor guía LSEC" class="mini-condor-img" />
+      </div>
+      <span><strong>Tip de tu guía:</strong> He corregido el abecedario. Aquí puedes verificar cada seña LSEC **exacta** y probar cómo la detecta el sistema.</span>
+      <button type="button" class="quick-tip-close" onclick="alternarConsejoCondor()" aria-label="Cerrar consejo">✕</button>
+    </aside>
+
+    <!-- ESCENARIO DEL AVATAR (Cóndor + Mano AI 3D Corregida) -->
+    <section class="avatar-stage-card">
+      <div class="stage-condor-header">
+        <div class="stage-minia-condor">
+          <img src="images/condor_logo.jpg" alt="Cóndor" class="condor-stage-hero-img" />
+        </div>
+        <div class="stage-status-bar">
+          <span class="dot-live dot-live--green"></span>
+          <span>Avatar LSEC Corregido y Listo para Prueba ✅</span>
+        </div>
+      </div>
+
+      <!-- VISOR DE MANO AI 3D (Esta es la seña LSEC CORREGIDA para prueba) -->
+      <div class="ai-hand-stage-wrapper">
+        <div id="ai-hand-stage" class="ai-hand-stage">
+          <!-- El modelo 3D corregido o la ilustración precisa se renderiza aquí -->
+          <div class="hand-ai-placeholder">
+            <span class="hand-ai-placeholder-ico">🖐️</span>
+            <span>Mano AI 3D<br>Seña LSEC Correcta para <strong id="target-sign-label">A</strong></span>
+          </div>
+        </div>
+        <div class="stage-info-pill">
+          <span class="confianza-pill confianza-pill--test">Prueba IA: <strong id="output-class">Iniciando...</strong></span>
+          <span class="confianza-pill">Confianza Prueba: <strong id="output-confidence">--</strong></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Selector de Letras LSEC para Prueba y Entrenamiento -->
+    <section class="builder-card">
+      <div class="builder-header">
+        <span class="builder-title">Selector de Prueba LSEC (Corregido)</span>
+        <span class="nlp-pill">Nivel 1 • Abecedario ✨</span>
+      </div>
+      <div class="board-surface">
+        <div id="target-selection-display" class="target-grid-selector"></div>
+      </div>
+    </section>
+
+    <!-- Panel Inferior de Controles para app.js -->
+    <section class="controls-dock">
+      <div class="controls-row-top">
+        <button type="button" class="btn-pad btn-soft-primary" onclick="agregarLetraDetectada()">
+          <span class="btn-ico">+</span>
+          <span>Letra</span>
+        </button>
+        <button type="button" class="btn-pad" onclick="agregarEspacio()">
+          <span class="btn-ico">␣</span>
+          <span>Espacio</span>
+        </button>
+        <button type="button" class="btn-pad" onclick="borrarPalabra()">
+          <span class="btn-ico">⌫</span>
+          <span>Borrar</span>
+        </button>
+      </div>
+      <div class="controls-row-bottom">
+        <button type="button" class="btn-pad btn-danger-soft" onclick="limpiarTexto()">
+          <span>🗑️ Limpiar</span>
+        </button>
+        <button type="button" class="btn-pad btn-cta-voice" onclick="leerOracion()">
+          <span>🔊 Leer Oración</span>
+        </button>
+      </div>
+    </section>
+  </div>
+
+  <!-- Barra de Navegación Inferior -->
+  <nav class="bottom-nav" aria-label="Navegación principal">
+    <a href="index.html" class="bottom-nav-item">
+      <span class="nav-ico">🏠</span>
+      <span>Inicio</span>
+    </a>
+    <a href="abecedario.html" class="bottom-nav-item">
+      <span class="nav-ico">📷</span>
+      <span>Traductor</span>
+    </a>
+    <a href="avatar_test.html" class="bottom-nav-item active">
+      <span class="nav-ico">🦅</span>
+      <span>Prueba Avatar</span>
+    </a>
+  </nav>
+
+  <!-- Datos y Lógica del Avatar para prueba en app.js -->
+  <script>
+    const ABECEDARIO_LSEC_CORREGIDO = ["A", "B", "C", "CH", "D", "E", "F", "G", "H", "I", "J", "K", "L", "LL", "M", "N", "Ñ", "O", "P", "Q", "R", "RR", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+    
+    function alternarConsejoCondor() {
+      const banner = document.getElementById('condor-quick-tip');
+      const btn = document.querySelector('.help-circle-btn');
+      if (!banner || !btn) return;
+      const estaOculto = banner.hasAttribute('hidden');
+      if (estaOculto) {
+        banner.removeAttribute('hidden');
+        btn.setAttribute('aria-expanded', 'true');
+      } else {
+        banner.setAttribute('hidden', '');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    function renderizarSelectorDePrueba() {
+      const grid = document.getElementById("target-selection-display");
+      if (!grid) return;
+      grid.innerHTML = ABECEDARIO_LSEC_CORREGIDO.map((letra, idx) => `
+        <button type="button" class="target-btn-item ${idx === 0 ? 'active' : ''}" onclick="seleccionarSeñaParaPrueba('${letra}', this)">
+          ${letra}
+        </button>
+      `).join("");
+    }
+
+    function seleccionarSeñaParaPrueba(letra, btn) {
+      document.querySelectorAll(".target-btn-item").forEach(b => b.classList.remove("active"));
+      if (btn) btn.classList.add("active");
+      document.getElementById("target-sign-label").textContent = letra;
+      inyectarSeñaLSECEnAppJS(letra);
+    }
+
+    function inyectarSeñaLSECEnAppJS(letra) {
+      // Esta función inyecta la seña LSEC corregida en app.js para realizar la prueba.
+      // Se comunicará con la Fase 2 cuando esté implementada.
+      console.log(`🦅 Inyectando seña LSEC Corregida para prueba: '${letra}' en app.js`);
+      // Para la Fase 2, aquí es donde app.js detecta esta inyección y actualiza #output-class y #output-confidence.
+    }
+
+    // Inicializar el selector de prueba
+    renderizarSelectorDePrueba();
+  </script>
+</body>
+</html>
