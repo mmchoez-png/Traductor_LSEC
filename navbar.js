@@ -1,7 +1,7 @@
 /**
  * Clase BarraNavegacionLSEC
- * Gestiona y conecta la barra de navegación inferior entre index.html,
- * abecedario.html y cartas.html sin duplicar código HTML.
+ * Gestiona la barra de navegación inferior con iconografía vectorial
+ * temática para Inicio, Traductor IA y Cartas 3D.
  */
 class BarraNavegacionLSEC {
   constructor(opciones = {}) {
@@ -9,23 +9,43 @@ class BarraNavegacionLSEC {
       {
         id: 'inicio',
         href: 'index.html',
-        icono: '🏠',
         texto: 'Inicio',
-        coincidencias: ['', 'index.html']
+        coincidencias: ['', 'index.html'],
+        svg: `
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path class="nav-svg-fill" d="M3 10.5 12 3l9 7.5V20a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 20v-9.5Z" />
+            <path d="M9.5 21.5V14a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v7.5" />
+          </svg>
+        `
       },
       {
         id: 'traductor',
         href: 'abecedario.html',
-        icono: '📷',
         texto: 'Traductor',
-        coincidencias: ['abecedario.html']
+        coincidencias: ['abecedario.html'],
+        svg: `
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 8V6a2 2 0 0 1 2-2h2" />
+            <path d="M16 4h2a2 2 0 0 1 2 2v2" />
+            <path d="M20 16v2a2 2 0 0 1-2 2h-2" />
+            <path d="M8 20H6a2 2 0 0 1-2-2v-2" />
+            <path class="nav-svg-fill" d="M12 7.5v4.5m0 0V7a1 1 0 1 1 2 0v5m0-4a1 1 0 1 1 2 0v4.5a4 4 0 0 1-4 4h-1a4 4 0 0 1-3.5-2.1L7 13.5a1 1 0 0 1 1.7-1l1.3 1.5V8.5a1 1 0 1 1 2 0Z" />
+          </svg>
+        `
       },
       {
         id: 'cartas',
         href: 'cartas.html',
-        icono: '🃏',
         texto: 'Cartas 3D',
-        coincidencias: ['cartas.html', 'avatar_test.html']
+        coincidencias: ['cartas.html', 'avatar_test.html'],
+        svg: `
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect class="nav-svg-fill" x="7" y="3" width="13" height="16" rx="2.5" />
+            <path d="M4 7v11.5A2.5 2.5 0 0 0 6.5 21H16" />
+            <path d="M11.5 9.5 13.5 7.5 15.5 9.5" />
+            <path d="M15.5 12.5 13.5 14.5 11.5 12.5" />
+          </svg>
+        `
       }
     ];
   }
@@ -43,13 +63,11 @@ class BarraNavegacionLSEC {
   renderizar() {
     const archivoActual = this.obtenerArchivoActual();
 
-    // Asegurar margen inferior en el contenedor principal de la vista
     const contenedor = document.querySelector('.app-container');
     if (contenedor) {
       contenedor.classList.add('app-container--with-nav');
     }
 
-    // Eliminar cualquier barra estática previa para evitar duplicados
     const barraPrevia = document.querySelector('nav.bottom-nav');
     if (barraPrevia) {
       barraPrevia.remove();
@@ -66,7 +84,7 @@ class BarraNavegacionLSEC {
           <a href="${item.href}"
              class="bottom-nav-item ${activa ? 'active' : ''}"
              ${activa ? 'aria-current="page"' : ''}>
-            <span class="nav-ico" aria-hidden="true">${item.icono}</span>
+            <span class="nav-ico">${item.svg}</span>
             <span>${item.texto}</span>
           </a>
         `;
@@ -77,7 +95,6 @@ class BarraNavegacionLSEC {
   }
 }
 
-// Inicialización automática al cargar cualquier pantalla
 const barraLSEC = new BarraNavegacionLSEC();
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => barraLSEC.renderizar());

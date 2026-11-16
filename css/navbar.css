@@ -1,10 +1,8 @@
 /* ==========================================================================
-   BARRA DE NAVEGACIÓN INFERIOR (Compartida por index, abecedario y cartas)
+   BARRA DE NAVEGACIÓN INFERIOR TEMÁTICA (Compartida por toda la app)
    ========================================================================== */
-
-/* Reserva espacio inferior en cualquier pantalla para que la barra no tape contenido */
 .app-container.app-container--with-nav {
-  padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(90px + env(safe-area-inset-bottom, 0px));
 }
 
 .bottom-nav {
@@ -18,28 +16,29 @@
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-top: 1px solid var(--border-light);
-  box-shadow: 0 -4px 18px rgba(15, 23, 42, 0.05);
+  box-shadow: 0 -6px 22px rgba(15, 23, 42, 0.06);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 6px;
-  padding: 8px 10px calc(10px + env(safe-area-inset-bottom, 0px));
+  gap: 8px;
+  padding: 8px 12px calc(10px + env(safe-area-inset-bottom, 0px));
   z-index: 50;
 }
 
 .bottom-nav-item {
+  position: relative;
   text-decoration: none;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 3px;
-  min-height: 54px;
+  gap: 4px;
+  min-height: 56px;
   padding: 6px 4px;
   border-radius: 16px;
   font-size: 0.74rem;
   font-weight: 700;
   color: var(--text-muted);
-  transition: background-color 0.16s ease, color 0.16s ease, transform 0.12s ease;
+  transition: background-color 0.18s ease, color 0.18s ease, transform 0.12s ease;
 }
 
 .bottom-nav-item:hover {
@@ -52,19 +51,41 @@
 }
 
 .bottom-nav-item .nav-ico {
-  font-size: 1.3rem;
-  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
 }
 
-/* Estado activo (píldora turquesa suave) */
+.bottom-nav-item .nav-svg-fill {
+  fill: transparent;
+  transition: fill 0.18s ease;
+}
+
+/* Estado activo: píldora turquesa, relleno dual SVG y acento superior ámbar */
 .bottom-nav-item.active {
   background-color: var(--primary-soft);
   color: var(--primary-dark);
   font-weight: 800;
 }
 
+.bottom-nav-item.active .nav-svg-fill {
+  fill: rgba(8, 145, 178, 0.18);
+}
+
+.bottom-nav-item.active::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 24px;
+  height: 3px;
+  border-radius: 0 0 999px 999px;
+  background-color: var(--amber);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .bottom-nav-item {
+  .bottom-nav-item,
+  .bottom-nav-item .nav-svg-fill {
     transition: none;
   }
 }
